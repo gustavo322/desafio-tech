@@ -1,47 +1,13 @@
-describe('Work with basic elements', ()=>{
-   
+describe('Testa a rotina de pedido e também os tipos de entrega', ()=>{
     Cypress.on('uncaught:exception', (err, runnable) => {
         return false
-        });
-
-    
+    });
 
     beforeEach(()=>{
         cy.visit('https://meucomercio.com.br/lojaqualificacao') 
-        
-    })
-
-    
-
-    it('TesteBarraDePesquisa', ()=>{
-        //Pesquisa retornando apenas um produto
-        cy.get('.search-bar__input').type('Alicate')
-        cy.wait(1500)
-        cy.get('.list-product__grid-column__title', { timeout : 2000}).click()
-        cy.get('.product-detail__content__info__product_name', { timeout : 2000}).should('have.text', 'Alicate de Bico - Uzzy')
-
-        cy.get('.nex-sidebar__store-profile > .ui').click()
-
-        //Pesquisa retornando 2 produtos sendo escolhido pelo nth-child(1) qual vai ser selecionado
-        cy.get('.search-bar__input').type('Capa')
-        cy.wait(1500)
-        cy.get(':nth-child(1) > .list-product__grid-column__info > .list-product__grid-column__title', { timeout : 2000}).click()
-        cy.get('.product-detail__content__info__product_name', { timeout : 2000}).should('have.text', ' Capa Celular S20 Clonado')        
-      
+            
     })
     
-    it('TesteLimiteQtdEmEstoque', ()=>{
-
-        cy.get(':nth-child(2) > .list-product__grid-column__info > .list-product__grid-column__div-section > :nth-child(2) > .amount-input > .amount-input__value').type(12)
-        cy.get('span > p').should('have.text', 'Quantidade indisponível. Apenas 11 unidades em estoque')
-        cy.get('.nex-confirm-modal__footer > .ui').click()
-        cy.get(':nth-child(2) > .list-product__grid-column__info > .list-product__grid-column__div-section > :nth-child(2) > .amount-input > .amount-input__value').type(1)
-        cy.reload()
-        cy.get('.list-product__items__wrapper > .ui > .row > :nth-child(2)').click()
-        cy.get('.secondary > .nex-icon').click()
-        cy.get('span > p').should('have.text', 'Quantidade indisponível. Apenas 11 unidades em estoque')
-        cy.get('.nex-confirm-modal__footer > .ui').click()
-    })
     it('TesteNaoAcharEnderecoPeloCep', ()=>{
         cy.get(':nth-child(1) > .list-product__grid-column__info > .list-product__grid-column__div-section > :nth-child(2) > .amount-input > .amount-input__value').type('3')
         cy.get(':nth-child(2) > .list-product__grid-column__info > .list-product__grid-column__div-section > :nth-child(2) > .amount-input > .amount-input__value').type('3')
@@ -171,6 +137,4 @@ describe('Work with basic elements', ()=>{
         .should('have.text', '\n    R. José de Oliveira Franco, 54321 99 -\n    Bairro Alto, Curitiba - PR, BR\n  ')
 
     })
-    
-      
-    })
+})
